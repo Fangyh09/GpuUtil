@@ -39,7 +39,12 @@ def get_io(fun):
     result_string = result.getvalue()
     return result_string
 
-def gpustatus(outfile=None, gpuids=[0, 1, 2, 3, 4, 5, 6, 7]):
+
+def gpustatus_wrapper(gpuids, outfile):
+    gpuids = gpuids.split(",")
+    return gpustatus(gpuids, outfile)
+
+def gpustatus(gpuids=[0, 1, 2, 3, 4, 5, 6, 7], outfile=None):
     """
     return nvidia-smi info && gpustatus info
     """
