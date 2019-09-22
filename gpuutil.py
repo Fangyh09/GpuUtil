@@ -45,7 +45,8 @@ def gpustatus_wrapper(gpuids, outfile):
     if len(str(gpuids)) == 1:
         gpuids = [int(gpuids)]
     else:
-        gpuids = gpuids.split(",")
+        # gpuids = gpuids.split(",")
+        gpuids = [int(x) for x in gpuids]
     return gpustatus(gpuids, outfile)
 
 def gpustatus(gpuids=[0, 1, 2, 3, 4, 5, 6, 7], outfile=None):
