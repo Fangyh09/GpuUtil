@@ -83,10 +83,27 @@ def fetch_empty_gpu():
     deviceIDs = GPUtil.getAvailable(order = 'first', limit = 10, maxLoad = 0.01, maxMemory = 0.01, excludeID=[], excludeUUID=[])
     return deviceIDs
 
+def fetch_run_gpu():
+    all_deviceIDs = GPUtil.getAvailable(order = 'first', limit = 10, maxLoad = 1.0, maxMemory = 1.0, excludeID=[], excludeUUID=[])
+    emtpy_deviceIDs = fetch_empty_gpu()
+    run_deviceIDs = []
+    for x in all_deviceIDs:
+        if x not in emtpy_deviceIDs:
+            run_deviceIDs.append(x)
+    return run_deviceIDs
+
 def get_free_gpustatus():
     deviceIDs = fetch_empty_gpu()
     output = gpustatus(gpuids=deviceIDs)
     return output
+
+def get_run_gpustatus():
+    deviceIDs = fetch_run_gpu()
+    output = gpustatus(gpuids=deviceIDs)
+    return output
+
+def get_all_gpustatus():
+    return gpustatus()
 
 def get_one_gpu():
     """
